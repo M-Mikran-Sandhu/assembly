@@ -1,0 +1,36 @@
+;NAME: M.ALI HAIDER
+;ROLL NO: 267
+.386
+INCLUDE irvine32.inc
+
+.model small
+.stack 100h
+
+.data
+msg1 db"Enter a number:", 0
+msg2 db"EVEN", 0
+msg3 db"ODD", 0
+var dd 2
+.code
+	main proc
+	mov edx,offset msg1
+	call writestring
+	call readint
+	mov edx,0
+	div var
+	mov eax,edx
+	cmp eax,1
+	je od
+	cmp eax,0
+	je ev
+	od:
+	mov edx,offset msg3
+	call writestring
+	exit
+	ev:
+	mov edx,offset msg2
+	call writestring
+
+		invoke ExitProcess, 0
+	main endp
+end main

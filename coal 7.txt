@@ -1,0 +1,67 @@
+;NAME:ALI HAIDER 
+;ROLL NO:267
+
+.386
+INCLUDE irvine32.inc
+
+.model small
+.stack 100h
+
+.data
+msg1 db"Enter 1st subject marks:", 0
+msg2 db"Enter 2nd subject marks:", 0
+msg3 db"Enter 3rd subject marks:", 0
+msg4 db"ADMISSION GRANTED!", 0
+msg5 db"FAIL!", 0
+msg6 db"INVALID INPUT! TRY AGAIN."
+var1 dd ?
+var2 dd ?
+var3 dd ?
+var4 dd 3
+.code
+	main proc
+	back:
+	mov edx,offset msg1
+	call writestring
+	call readint
+	mov var1,eax
+	call crlf
+	mov edx,offset msg2
+	call writestring
+	call readint
+	mov var2,eax
+	call crlf
+	mov edx,offset msg3
+	call writestring
+	call readint
+	mov var3,eax
+	call crlf
+	add eax,var1
+	add eax,var2
+	mov edx,0
+	div var4
+	cmp eax,100
+	jg inv
+	cmp eax,80
+	jg suc
+	cmp eax,0
+	jl inv
+	cmp eax,80
+	jle fail
+	jmp inv
+	suc:
+	mov edx, offset msg4
+	call writestring
+	exit
+	fail:
+	mov edx, offset msg5
+	call writestring
+	exit
+	inv:
+	mov edx, offset msg6
+	call writestring
+	jmp back
+
+		invoke ExitProcess, 0
+	main endp
+end main

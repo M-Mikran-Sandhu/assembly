@@ -1,0 +1,60 @@
+.386
+INCLUDE irvine32.inc
+
+.model small
+.stack 100h
+
+.data
+msg1 DB"Enter 1st Number: ",0
+msg2 DB"Enter 2nd Number: ",0
+msg3 DB"Enter 3rd Number: ",0
+msg4 DB"Enter 4th Number: ",0
+msg5 DB"Enter 5th Number: ",0
+
+var1 DD 0
+var2 DD 0
+var3 DD 0
+var4 DD 0
+var5 DD 0
+var6 DD 5
+
+
+.code
+	main proc
+	mov edx,offset msg1
+	call writestring
+	call readint
+	mov var1,eax
+
+	mov edx,offset msg2
+	call writestring
+	call readint
+	mov var2,eax
+
+	mov edx,offset msg3
+	call writestring
+	call readint
+	mov var3,eax
+
+	mov edx,offset msg4
+	call writestring
+	call readint
+	mov var4,eax
+
+	mov edx,offset msg5
+	call writestring
+	call readint
+	mov var5,eax
+
+	mov eax,var1
+	add eax,var2
+	add eax,var3
+	add eax,var4
+	add eax,var5
+
+	mov edx,0
+	Div var6
+	call writeint
+		invoke ExitProcess, 0
+	main endp
+end main

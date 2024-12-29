@@ -1,0 +1,50 @@
+; Name: Mikran Sandhu, Roll Number: 260, Lab Task 4
+.386
+INCLUDE irvine32.inc
+
+.model small
+.stack 100h
+
+.data
+msg1 DB"Enter a Random Number: ",0
+msg2 DB"Random Number is: ",0
+msg3 DB"Square of a Number is :",0
+msg4 DB"Cube of a Number is ",0
+var DD 0
+var1 DD 0
+var2 DD 0
+
+.code
+	main proc
+	mov edx,offset msg1
+	call writestring
+	call readint
+
+	mov edx,offset msg2
+	call writestring
+	mov var,eax
+    INC var             ;INCREMENT OF 1
+	call Randomize
+	mov eax,var
+	call RandomRange    ;TO GET RANDOM NUMBER
+	call writeint
+	call crlf           ;USED AS ENDL
+
+	mov var1,eax        ;MOVING VALUE FROM ACCUMULATOR TO VARIABLE
+	mov edx,offset msg3
+	call writestring
+	mul var1            ;TO GET THE SQUARE OF A NUMBER PRESENT IN ACCUMULATOR
+	call writeint
+	call crlf
+
+	mov var2,eax
+	mov edx,offset msg4
+	call writestring
+	mul var2           ;TO GET CUBE OF A NUMBER PRESENT IN ACCUMULATOR
+    call writeint
+
+
+	
+		invoke ExitProcess, 0
+	main endp
+end main
