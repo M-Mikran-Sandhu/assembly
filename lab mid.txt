@@ -1,0 +1,121 @@
+.386
+include irvine32.inc
+.model small
+.stack 100h
+
+.data
+
+;variable to show messages
+
+msg db "Enter your salary:",0
+msg1  db "Net salary:",0
+msg2  db "Bonus amount:",0
+msg3 db "ERROR! Invalid grade",0
+msg4 db "Enter your grade:",0
+msg5 db "ERROR! Invalid salary",0
+
+;Variables
+
+var dd 0                                       ;to store salary
+var1 dd 20                                       
+var2 dd 10                                      
+var5 dd 100                                    
+grade dd 0
+
+.code
+     main proc
+     sla:
+     mov edx,offset msg                         
+     call writestring                           ;print message to get salary
+     call readint                               ;to get salary
+ 
+     mov var,eax                                ;move eax to salary
+
+     cmp var,0                                  ;if salary is less the equal to zero 
+     jle invalidsal
+
+     start:                                     ;if user give invalid value
+
+     mov edx,offset msg4                         
+     call writestring                           ;print message to get grade
+     call readint                               ;to get grade
+     
+     mov grade,eax                              ;move eax to grade
+   
+    
+     cmp grade,0                                   ;compair with zero
+     jle invalid                                 ;if grade is less then or equal zero go to invalid lable
+ 
+
+
+     cmp grade,22                                  ;compair with 22
+     jg invalid                                  ;if grade is greater then 22 go to invalid lable
+     jle  valid                                  ;if grade is less then 22 go to valid lable
+
+
+     invalidsal:
+     mov edx,offset msg5
+     call writestring
+     call crlf                                   ;skip line
+     jmp sla                                   ;go to sla lable
+     
+     invalid:
+     mov edx,offset msg3
+     call writestring
+     call crlf                                   ;skip line
+     jmp start                                   ;go to start lable
+     
+     valid:                                      ;valid lable
+                                       
+      cmp grade,17                              ;if grade is greater then 17 go to twenty lable
+      jg twenty
+      jle ten                                   ;if grade is less then or equal 17 go to twenty lable
+ 
+     twenty:
+     mov eax,var
+     mov edx,0
+     mul var1                                     ;multiply salary with 20
+     div var5                                     ;divide eax with 100
+     add var,eax                                  ;salary-bonus amount
+     
+     mov edx,offset msg2
+     call writestring
+     call writeint
+     call crlf
+     
+     mov edx,offset msg1
+     call writestring
+     
+     mov eax,var
+     call writeint
+     exit
+
+     
+     ten:
+     mov eax,var
+     mov edx,0
+     mul var2                                ;multiply salary with 10
+     div var5                                ;divide eax with 100
+     add var,eax                             ;salary-bonus amount
+     
+     mov edx,offset msg2
+     call writestring
+     call writeint
+     call crlf
+      
+     mov edx,offset msg1
+     call writestring
+     
+     mov eax,var
+     call writeint
+     exit
+
+      
+
+
+
+
+ invoke exitprocess,0
+
+ main endp
+ end main
