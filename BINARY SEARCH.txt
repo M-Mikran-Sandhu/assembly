@@ -1,0 +1,113 @@
+;MUHAMMAD  MIKRAN SANDHU
+;BSCS III F
+
+.386
+include irvine32.inc
+.model small
+.stack 100h
+
+.data
+
+msg db "Enter the number to search: ",0
+msg2 db "Number found at index: ",0
+msg3 db "Number not found",0
+
+arr dd 1,2,3,4,5,6,7,8,9 
+
+mid dd ?
+loww dd 0
+highh dd 8
+twoo dd 2
+
+srch dd 1
+
+.code
+     main proc
+
+    mov edx, offset msg
+    call writestring
+    call readint
+
+    mov srch,eax     ; sch = eax
+
+    start:          
+    
+    mov eax,loww     ; eax = low
+
+    cmp eax,highh
+
+    jg not_found
+
+    mov eax,loww     ; eax = low
+
+    add eax,highh    ; eax = low + high
+
+    DIV twoo           ; eax = eax / 2 
+
+    mov mid,eax     ; mid = eax
+
+    mov ecx,mid     ; ecx = mid
+
+
+    mov ebx , offset arr        ; ebx = offset arr 
+
+
+    l1:              
+        add ebx,4 	 ; ebx = ebx + 4
+    loop l1
+
+    mov eax,[ebx]   ; eax = [ebx] 
+
+
+    cmp eax,srch     ; if eax == sch then jump to found
+
+    je found        ; if eax == sch then jump to found
+
+    jg adjusthigh  ; if eax > sch then jump to adjust-high
+
+    jl adjustlow   ; if eax < sch then jump to adjust-low
+
+
+    adjusthigh:
+
+    mov eax,mid     ; eax = mid
+   
+    mov highh, eax  ; high = eax
+
+    sub highh, 1    ; high = high - 1
+
+    jmp start
+
+    adjustlow:
+
+    mov eax,mid     ; eax = mid
+
+    mov loww, eax   ; low = eax
+
+    add loww, 1     ; low = low + 1
+
+    jmp start
+
+
+    found:
+
+    dec mid			; mid = mid - 1
+
+    mov eax,mid		; eax = mid
+
+    mov edx, offset msg2    
+    call writestring
+
+    call writeint
+
+    exit
+
+    not_found:
+
+    mov edx, offset msg3
+    call writestring
+           
+ invoke exitprocess,0
+
+ main endp
+ end main

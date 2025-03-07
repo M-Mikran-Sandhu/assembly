@@ -1,0 +1,303 @@
+
+.data
+	msg DB "ABC", 0
+	count DD 0
+.code
+	main proc
+		mov edx, offset msg
+		call strlength 		; eax=3 
+		mov count, eax		; count=eax or count=3
+		mov ecx, 5		; ecx=5 means loop will repeat for 5 times
+
+		L1: 			;    loop1    |    loop2   |    loop3   |    loop4   |    loop5   
+			inc count	; count=3+1=4 | count=4+1=5| count=5+1=6| count=6+1=7| count=7+1=8
+			inc count	; count=4+1=5 | count=5+1=6| count=6+1=7| count=7+1=8| count=8+1=9
+			dec count	; count=5-1=4 | count=6-1=5| count=7-1=6| count=8-1=7| count=9-1=8
+		loop L1
+		mov eax, count		; eax=count=8
+		call writeint
+	invoke ExitProcess, 0
+	main endp
+end main
+
+
+
+
+
+
+
+
+
+
+.data
+
+.code
+	main proc
+		mov eax, 6 	; eax=6
+		mov ecx, 3	; ecx=3
+		
+		;Loop will run for 3 time		
+
+		L1:			; LOOP 1  |  LOOP 2  |  LOOP 3  |
+			mov ebx, 5	; ebx=5   |  ebx=5   |  ebx=5   |
+			mul ebx		; 6*5=30  |  30*5=150| 150*5=750| 
+		loop L1
+		call writeint
+	invoke ExitProcess, 0
+	main endp
+end main
+
+
+
+
+
+
+
+
+
+
+.data
+
+.code
+	main proc
+		mov eax, 5
+		mov ecx, 3
+		L1:			; LOOP 1  |  LOOP 2  |  LOOP 3  |
+			mov ebx, 4	; ebx=4   |  ebx=4   |  ebx=4   |
+			mul ebx		; 5*4=20  |  20*4=80 |  80*4=320| 
+		loop L1
+		call writeint
+	invoke ExitProcess, 0
+	main endp
+end main
+
+
+
+
+
+
+
+
+
+
+.data
+	temp DWORD 5 dup(4)
+.code
+	main proc
+		mov ebx, offset temp
+		mov ecx, 5
+		L1:
+			mov eax, [ebx]
+			call writeint
+			call crlf
+			add ebx, 4
+		loop L1
+	invoke ExitProcess, 0
+	main endp
+end main
+
+
+
+
+
+
+
+
+
+
+.data
+	temp DWORD 3,6,9,12,15
+.code
+	main proc
+		mov ebx, offset temp
+		add ebx, 16
+		mov ecx, 5
+		L1:
+			mov eax, [ebx]
+			call writeint
+			call crlf
+			sub ebx, 4
+		loop L1
+	invoke ExitProcess, 0
+	main endp
+end main
+
+
+
+
+
+
+
+
+
+
+.data
+	var1 DD ?
+.code
+	main proc
+		mov ebx, 3
+		mov ecx, 6
+		l1:
+			mov var1, ecx
+			mov ecx, ebx
+			l2:
+				mov eax, '*'
+				call WriteChar
+			loop l2
+			call crlf
+			inc ebx
+			mov ecx, var1
+		loop l1
+	invoke ExitProcess, 0
+	main endp
+end main
+
+
+
+
+
+
+
+
+
+
+.data
+	var1 DD ?
+.code
+main proc
+		mov ebx, 7
+		mov ecx, 7
+		l1:
+			mov var1, ecx
+			mov ecx, ebx
+			l2:
+				mov eax, '*'
+				call WriteChar
+			loop l2
+			call crlf
+			dec ebx
+			mov ecx, var1
+		loop l1
+	invoke ExitProcess, 0
+	main endp
+end main
+
+
+
+
+
+
+
+
+
+
+.data
+	var1 DD ?
+.code
+	main proc
+		mov ebx, 5
+		mov ecx, 6
+		l1:
+			mov var1, ecx
+			mov ecx, ebx
+			l2:
+				mov eax, '*'
+				call WriteChar
+			loop l2
+			call crlf
+			inc ebx
+			mov ecx, var1
+		loop l1
+	invoke ExitProcess, 0
+	main endp
+end main
+
+
+
+
+
+
+
+
+
+
+.data
+	var1 DD ?
+.code
+	main proc
+		mov ebx, 5
+		mov ecx, 5
+		l1:
+			mov var1, ecx
+			mov ecx, ebx
+			l2:
+				mov eax, '*'
+				call WriteChar
+			loop l2
+			call crlf
+			dec ebx
+			mov ecx, var1
+		loop l1
+	invoke ExitProcess, 0
+	main endp
+end main
+
+
+
+
+
+
+
+
+
+
+.data
+	var1 DD ?
+.code
+	main proc
+		mov ebx, 2
+		mov ecx, 6
+		l1:
+			mov var1, ecx
+			mov ecx, ebx
+			l2:
+				mov eax, '*'
+				call WriteChar
+			loop l2
+			call crlf
+			inc ebx
+			mov ecx, var1
+		loop l1
+	invoke ExitProcess, 0
+	main endp
+end main
+
+
+
+
+
+
+
+
+
+
+.data
+	var1 DD ?
+.code
+	main proc
+		mov ebx, 4
+		mov ecx, 4
+		l1:
+			mov var1, ecx
+			mov ecx, ebx
+			l2:
+				mov eax, '*'
+				call WriteChar
+			loop l2
+			call crlf
+			dec ebx
+			mov ecx, var1
+		loop l1
+	invoke ExitProcess, 0
+	main endp
+end main
