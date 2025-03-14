@@ -1,0 +1,38 @@
+.data
+    sum DD 0  ; Variable to store the next Fibonacci number temporarily
+
+.code
+main proc
+    mov eax, 0   ; First Fibonacci number (Fib(0) = 0)
+    mov ebx, 1   ; Second Fibonacci number (Fib(1) = 1)
+    mov ecx, 13  ; Counter: Loop will run 13 times to print the first 13 Fibonacci numbers
+
+re:
+    call writeint  ; Print the current Fibonacci number stored in eax
+
+    mov sum, eax   ; Store current Fibonacci number in sum
+    add sum, ebx   ; sum = eax + ebx (next Fibonacci number)
+
+    mov ebx, eax   ; Update previous Fibonacci number (ebx = eax)
+    mov eax, sum   ; Load the newly computed Fibonacci number into eax
+
+    loop re  ; Decrement ecx and repeat loop until ecx = 0
+
+    invoke ExitProcess, 0  ; Exit the program
+main endp
+end main
+
+; Expected Output:
+; 0
+; 1
+; 1
+; 2
+; 3
+; 5
+; 8
+; 13
+; 21
+; 34
+; 55
+; 89
+; 144
